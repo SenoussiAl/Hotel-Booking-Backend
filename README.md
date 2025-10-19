@@ -26,5 +26,7 @@ It manages functionalities such as:
 
 ---
 
-## 🏗️ Project Structure
+## Database Schema
+
+![Database Schema](./schema.png)
 
