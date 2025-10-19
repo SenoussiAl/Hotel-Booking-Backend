@@ -28,5 +28,5 @@ It manages functionalities such as:
 
 ## Database Schema
 
-![Database Schema](/schema.png)
+![Database Schema](./docs/schema.png)
 
