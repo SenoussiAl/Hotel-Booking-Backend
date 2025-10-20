@@ -14,6 +14,15 @@ namespace HotelBookingSystem.Models.Dtos
         public int ReservationCount { get; set; }
     }
 
+    public class RoomSearchDto
+    {
+        public DateTime CheckIn { get; set; }
+        public DateTime CheckOut { get; set; }
+        public decimal? MinPrice { get; set; }
+        public decimal? MaxPrice { get; set; }
+        public int? NumBeds { get; set; }
+    }
+
     public class RoomCreateDto
     {
         public string RoomNumber { get; set; } = null!;

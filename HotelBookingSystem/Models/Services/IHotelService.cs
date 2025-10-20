@@ -9,7 +9,7 @@ namespace HotelBookingSystem.Models.Services
         Task<IEnumerable<HotelReadDto>> GetAllHotelsAsync();
         Task<HotelReadDto?> GetHotelByIdAsync(int id);
         Task<HotelReadDto> CreateHotelAsync(HotelCreateDto hotelDto);
-        Task<bool> UpdateHotelAsync(int id, HotelUpdateDto hotelDto);
+        Task<HotelReadDto?> UpdateHotelAsync(int id, HotelUpdateDto hotelDto);
         Task<bool> DeleteHotelAsync(int id);
     }
 }
