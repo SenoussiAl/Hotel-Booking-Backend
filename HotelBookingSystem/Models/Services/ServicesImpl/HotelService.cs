@@ -21,16 +21,7 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
                 .Include(h => h.Reviews)
                 .ToListAsync();
 
-            var hotelDtos = _mapper.Map<IEnumerable<HotelReadDto>>(hotels);
-
-            foreach (var dto in hotelDtos)
-            {
-                var entity = hotels.First(h => h.HotelId == dto.HotelId);
-                dto.RoomCount = entity.Rooms.Count;
-                dto.ReviewCount = entity.Reviews.Count;
-            }
-
-            return hotelDtos;
+            return _mapper.Map<IEnumerable<HotelReadDto>>(hotels);
         }
 
         public async Task<HotelReadDto?> GetHotelByIdAsync(int id)
@@ -44,8 +35,6 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
                 return null;
 
             var dto = _mapper.Map<HotelReadDto>(hotel);
-            dto.RoomCount = hotel.Rooms.Count;
-            dto.ReviewCount = hotel.Reviews.Count;
 
             return dto;
         }
@@ -57,21 +46,22 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
             await _context.SaveChangesAsync();
 
             var createdHotel = _mapper.Map<HotelReadDto>(hotel);
-            createdHotel.RoomCount = 0;
-            createdHotel.ReviewCount = 0;
             return createdHotel;
         }
 
-        public async Task<bool> UpdateHotelAsync(int id, HotelUpdateDto hotelDto)
+
+        public async Task<HotelReadDto?> UpdateHotelAsync(int id, HotelUpdateDto hotelDto)
         {
             var hotel = await _context.Hotels.FindAsync(id);
             if (hotel == null)
-                return false;
+                return null;
 
             _mapper.Map(hotelDto, hotel);
             await _context.SaveChangesAsync();
 
-            return true;
+
+            var updatedHotel = _mapper.Map<HotelReadDto>(hotel);
+            return updatedHotel;
         }
 
         public async Task<bool> DeleteHotelAsync(int id)
