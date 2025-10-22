@@ -47,7 +47,6 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
         }
 
 
-
         public async Task<IEnumerable<RoomReadDto>> SearchRoomsAsync(RoomSearchDto searchDto)
         {
             var query = _context.Rooms
@@ -73,6 +72,8 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
             var rooms = await query.ToListAsync();
             return _mapper.Map<IEnumerable<RoomReadDto>>(rooms);
         }
+
+
         public async Task<RoomReadDto> CreateRoomAsync(RoomCreateDto roomDto)
         {
             var room = _mapper.Map<Room>(roomDto);

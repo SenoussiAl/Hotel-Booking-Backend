@@ -7,7 +7,6 @@ namespace HotelBookingSystem.Models.Dtos
         public string? RoomType { get; set; }
         public int? NumBeds { get; set; }
         public decimal PricePerNight { get; set; }
-        public string? AvailabilityStatus { get; set; }
         public string? Description { get; set; }
         public int? HotelId { get; set; }
         public string? HotelName { get; set; }
@@ -29,7 +28,6 @@ namespace HotelBookingSystem.Models.Dtos
         public string? RoomType { get; set; }
         public int? NumBeds { get; set; }
         public decimal PricePerNight { get; set; }
-        public string? AvailabilityStatus { get; set; }
         public string? Description { get; set; }
         public int? HotelId { get; set; }
     }
@@ -40,7 +38,6 @@ namespace HotelBookingSystem.Models.Dtos
         public string? RoomType { get; set; }
         public int? NumBeds { get; set; }
         public decimal PricePerNight { get; set; }
-        public string? AvailabilityStatus { get; set; }
         public string? Description { get; set; }
     }
 }

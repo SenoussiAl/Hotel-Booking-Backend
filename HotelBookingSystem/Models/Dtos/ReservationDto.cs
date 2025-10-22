@@ -18,6 +18,13 @@ namespace HotelBookingSystem.Models.Dtos
         public string? RoomNumber { get; set; }
         public string? CustomerName { get; set; }
     }
+    public class RoomAvailabilityDto
+    {
+        public int RoomId { get; set; }
+        public DateOnly CheckInDate { get; set; }
+        public DateOnly CheckOutDate { get; set; }
+    }
+
 
     public class ReservationCreateDto
     {
