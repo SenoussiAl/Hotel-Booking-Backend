@@ -12,12 +12,13 @@ namespace HotelBookingSystem.Models.Dtos
         public string? ReservationStatus { get; set; }
         public int? HotelId { get; set; }
         public int? RoomId { get; set; }
-        public int? CustomerId { get; set; }
+        public int? UserId { get; set; }
 
         public string? HotelName { get; set; }
         public string? RoomNumber { get; set; }
-        public string? CustomerName { get; set; }
+        public string? Username { get; set; }
     }
+
     public class RoomAvailabilityDto
     {
         public int RoomId { get; set; }
@@ -37,7 +38,7 @@ namespace HotelBookingSystem.Models.Dtos
         public string? ReservationStatus { get; set; }
         public int? HotelId { get; set; }
         public int? RoomId { get; set; }
-        public int? CustomerId { get; set; }
+        public int? UserId { get; set; }
     }
 
     public class ReservationUpdateDto

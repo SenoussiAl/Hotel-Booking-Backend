@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelBookingSystem.Models.Services.ServicesImpl
 {
-    public class HotelService(AppDbContext context, IMapper mapper) : IHotelService
+    public class HotelService(HotelBookingDbContext context, IMapper mapper) : IHotelService
     {
-        private readonly AppDbContext _context = context;
+        private readonly HotelBookingDbContext _context = context;
         private readonly IMapper _mapper = mapper;
 
         public async Task<IEnumerable<HotelReadDto>> GetAllHotelsAsync()
@@ -31,9 +31,7 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
             if (hotel == null)
                 return null;
 
-            var dto = _mapper.Map<HotelReadDto>(hotel);
-
-            return dto;
+            return _mapper.Map<HotelReadDto>(hotel);;
         }
 
         public async Task<HotelReadDto> CreateHotelAsync(HotelCreateDto hotelDto)
@@ -45,7 +43,6 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
             var createdHotel = _mapper.Map<HotelReadDto>(hotel);
             return createdHotel;
         }
-
 
         public async Task<HotelReadDto?> UpdateHotelAsync(int id, HotelUpdateDto hotelDto)
         {

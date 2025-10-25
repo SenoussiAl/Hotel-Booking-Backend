@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelBookingSystem.Models.Services.ServicesImpl
 {
-    public class RoomService(AppDbContext context, IMapper mapper) : IRoomService
+    public class RoomService(HotelBookingDbContext context, IMapper mapper) : IRoomService
     {
-        private readonly AppDbContext _context = context;
+        private readonly HotelBookingDbContext _context = context;
         private readonly IMapper _mapper = mapper;
 
         public async Task<IEnumerable<RoomReadDto>> GetAllRoomsAsync()
@@ -20,8 +20,6 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
 
             return _mapper.Map<IEnumerable<RoomReadDto>>(rooms);
         }
-
-
 
         public async Task<IEnumerable<RoomReadDto>> GetAllRoomsFromHotelIdAsync(int hotelId)
         {
@@ -45,7 +43,6 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
 
             return _mapper.Map<RoomReadDto>(room);
         }
-
 
         public async Task<IEnumerable<RoomReadDto>> SearchRoomsAsync(RoomSearchDto searchDto)
         {
@@ -73,7 +70,6 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
             return _mapper.Map<IEnumerable<RoomReadDto>>(rooms);
         }
 
-
         public async Task<RoomReadDto> CreateRoomAsync(RoomCreateDto roomDto)
         {
             var room = _mapper.Map<Room>(roomDto);
@@ -83,7 +79,9 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
             var createdRoom = _mapper.Map<RoomReadDto>(room);
             return createdRoom;
 
+
         }
+        
         public async Task<RoomReadDto?> UpdateRoomAsync(int id, RoomUpdateDto roomDto)
         {
             var room = await _context.Rooms.FindAsync(id);
@@ -94,9 +92,9 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
             _mapper.Map(roomDto, room);
             await _context.SaveChangesAsync();
 
-            var updatedRoom = _mapper.Map<RoomReadDto>(room);
-            return updatedRoom;
+            return _mapper.Map<RoomReadDto>(room);
         }
+
         public async Task<bool> DeleteRoomAsync(int id)
         {
             var room = await _context.Rooms.FindAsync(id);

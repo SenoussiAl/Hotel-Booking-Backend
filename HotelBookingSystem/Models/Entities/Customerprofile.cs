@@ -1,10 +1,12 @@
 ﻿namespace HotelBookingSystem.Models.Entities;
 
-public partial class Userprofile
+public partial class CustomerProfile
 {
-    public int ProfileId { get; set; }
+    public int CustomerId { get; set; }
 
-    public string? UserFullname { get; set; }
+    public string? CustomerFirstName { get; set; }
+    
+    public string? CustomerLastName { get; set; }
 
     public string? Phone { get; set; }
 
@@ -18,7 +20,7 @@ public partial class Userprofile
 
     public string? Gender { get; set; }
 
-    public int? CustomerId { get; set; }
+    public int? UserId { get; set; }
 
-    public virtual Customer? Customer { get; set; }
+    public virtual UserAccount? User { get; set; }
 }

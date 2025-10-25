@@ -1,22 +1,25 @@
 namespace HotelBookingSystem.Models.Dtos
 {
-    public class CustomerReadDto
+    public class UserAccountReadDto
     {
-        public int Id { get; set; }
-        public string CustomerName { get; set; } = null!;
+        public int UserId { get; set; } 
         public string Username { get; set; } = null!;
+        public string UserEmail { get; set; } = null!;
+        public string? Role { get; set; }
     }
 
-    public class CustomerCreateDto
+    public class UserAccountCreateDto
     {
-        public string CustomerName { get; set; } = null!;
         public string Username { get; set; } = null!;
-        public string CustomerPassword { get; set; } = null!;
+        public string UserEmail { get; set; } = null!;
+        public string UserPassword { get; set; } = null!;
+        public string? Role { get; set; } 
     }
 
-    public class CustomerUpdateDto
+    public class UserAccountUpdateDto
     {
-        public string CustomerName { get; set; } = null!;
         public string Username { get; set; } = null!;
+        public string UserEmail { get; set; } = null!;
+        public string UserPassword { get; set; } = null!;
     }
 }

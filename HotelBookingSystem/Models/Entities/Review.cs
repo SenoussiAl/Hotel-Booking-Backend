@@ -14,5 +14,9 @@ public partial class Review
 
     public int? HotelId { get; set; }
 
+    public int? UserId { get; set; }
+
     public virtual Hotel? Hotel { get; set; }
+
+    public virtual UserAccount? User { get; set; }
 }

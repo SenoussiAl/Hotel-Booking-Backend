@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using HotelBookingSystem.Models;
+using HotelBookingSystem.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelBookingSystem.Data;
@@ -16,7 +16,7 @@ public partial class HotelBookingDbContext : DbContext
     {
     }
 
-    public virtual DbSet<Customerprofile> Customerprofiles { get; set; }
+    public virtual DbSet<CustomerProfile> CustomerProfiles { get; set; }
 
     public virtual DbSet<Hotel> Hotels { get; set; }
 
@@ -26,15 +26,14 @@ public partial class HotelBookingDbContext : DbContext
 
     public virtual DbSet<Room> Rooms { get; set; }
 
-    public virtual DbSet<Useraccount> Useraccounts { get; set; }
+    public virtual DbSet<UserAccount> UserAccounts { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost;Database=hotel_booking_db;Username=postgres;Password=kulbuji807");
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            => optionsBuilder.UseNpgsql("Name=ConnectionStrings:DefaultConnection");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Customerprofile>(entity =>
+        modelBuilder.Entity<CustomerProfile>(entity =>
         {
             entity.HasKey(e => e.CustomerId).HasName("userprofile_pkey");
 
@@ -59,12 +58,15 @@ public partial class HotelBookingDbContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("phone");
             entity.Property(e => e.UserAddress).HasColumnName("user_address");
-            entity.Property(e => e.UserFullname)
+            entity.Property(e => e.CustomerFirstName)
                 .HasMaxLength(100)
-                .HasColumnName("user_fullname");
+                .HasColumnName("first_name");
+            entity.Property(e => e.CustomerLastName)
+                .HasMaxLength(100)
+                .HasColumnName("last_name");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Customerprofiles)
+            entity.HasOne(d => d.User).WithMany(p => p.CustomerProfiles)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("userprofile_user_id_fkey");
@@ -190,7 +192,7 @@ public partial class HotelBookingDbContext : DbContext
                 .HasConstraintName("room_hotel_id_fkey");
         });
 
-        modelBuilder.Entity<Useraccount>(entity =>
+        modelBuilder.Entity<UserAccount>(entity =>
         {
             entity.HasKey(e => e.UserId).HasName("customer_pkey");
 

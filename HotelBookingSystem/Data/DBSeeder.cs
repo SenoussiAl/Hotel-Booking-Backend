@@ -4,7 +4,7 @@ using HotelBookingSystem.Models.Entities;
 namespace HotelBookingSystem.Data;
     public static class DbSeeder
     {
-        public static async Task SeedHotelsAsync(AppDbContext context)
+        public static async Task SeedHotelsAsync(HotelBookingDbContext context)
         {
             if (!context.Hotels.Any())
             {

@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelBookingSystem.Models.Services.ServicesImpl
 {
-    public class ReservationService(AppDbContext context, IMapper mapper) : IReservationService
+    public class ReservationService(HotelBookingDbContext context, IMapper mapper) : IReservationService
     {
-        private readonly AppDbContext _context = context;
+        private readonly HotelBookingDbContext _context = context;
         private readonly IMapper _mapper = mapper;
 
         public async Task<bool> IsRoomAvailableAsync(RoomAvailabilityDto roomAvailabilityDto)
@@ -36,7 +36,18 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
             var reservations = await _context.Reservations
                 .Include(r => r.Room)
                 .Include(r => r.Hotel)
-                .Include(r => r.Customer)
+                .Include(r => r.User)
+                .ToListAsync();
+
+            return _mapper.Map<IEnumerable<ReservationReadDto>>(reservations);
+        }
+
+        public async Task<IEnumerable<ReservationReadDto>> GetAllReservationsByUserIdAsync(int userId)
+        {
+            var reservations = await _context.Reservations
+                .Include(r => r.Room)
+                .Include(r => r.Hotel)
+                .Include(r => r.User)
                 .ToListAsync();
 
             return _mapper.Map<IEnumerable<ReservationReadDto>>(reservations);
@@ -47,7 +58,7 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
             var reservation = await _context.Reservations
                 .Include(r => r.Room)
                 .Include(r => r.Hotel)
-                .Include(r => r.Customer)
+                .Include(r => r.User)
                 .FirstOrDefaultAsync(r => r.ReservationId == id);
 
             if (reservation == null)

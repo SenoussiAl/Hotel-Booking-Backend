@@ -6,10 +6,52 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HotelBookingSystem.Models.Services.ServicesImpl
 {
-    public class ReviewService(AppDbContext context, IMapper mapper) : IReviewService
+    public class ReviewService(HotelBookingDbContext context, IMapper mapper) : IReviewService
     {
-        private readonly AppDbContext _context = context;
+        private readonly HotelBookingDbContext _context = context;
         private readonly IMapper _mapper = mapper;
+
+        public async Task<IEnumerable<ReviewReadDto>> GetAllReviewsAsync()
+        {
+            var reviews = await _context.Reviews
+                .Include(r => r.Hotel)
+                .ToListAsync();
+
+            return _mapper.Map<IEnumerable<ReviewReadDto>>(reviews);
+        }
+
+        public async Task<IEnumerable<ReviewReadDto>> GetAllReviewsFromHotelIdAsync(int hotelId)
+        {
+            var reviews = await _context.Reviews
+                .Where(r => r.HotelId == hotelId)
+                .Include(r => r.Hotel)
+                .ToListAsync();
+
+            return _mapper.Map<IEnumerable<ReviewReadDto>>(reviews);
+        }
+
+        public async Task<IEnumerable<ReviewReadDto>> GetAllReviewsFromUserIdAsync(int userId)
+        {
+            var reviews = await _context.Reviews
+                .Where(r => r.UserId == userId)
+                .Include(r => r.Hotel)
+                .Include(r => r.User)
+                .ToListAsync();
+
+            return _mapper.Map<IEnumerable<ReviewReadDto>>(reviews);
+        }
+
+        public async Task<ReviewReadDto?> GetReviewByIdAsync(int id)
+        {
+            var review = await _context.Reviews
+                .Include(r => r.Hotel)
+                .FirstOrDefaultAsync(r => r.ReviewId == id);
+
+            if (review == null)
+                return null;
+
+            return _mapper.Map<ReviewReadDto>(review);
+        }
 
         public async Task<ReviewReadDto> CreateReviewAsync(ReviewCreateDto reviewDto)
         {
@@ -20,29 +62,30 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
             return createdReview;
         }
 
-        public Task<bool> DeleteReviewAsync(int id)
+        public async Task<ReviewReadDto?> UpdateReviewAsync(int id, ReviewUpdateDto reviewDto)
         {
-            throw new NotImplementedException();
-        }
+            var review = await _context.Reviews.FindAsync(id);
 
-        public Task<IEnumerable<ReviewReadDto>> GetAllReviewsAsync()
-        {
-            throw new NotImplementedException();
-        }
+            if (review == null)
+                return null;
 
-        public Task<IEnumerable<ReviewReadDto>> GetAllReviewsFromHotelIdAsync(int hotelId)
-        {
-            throw new NotImplementedException();
-        }
+            _mapper.Map(reviewDto, review);
+            await _context.SaveChangesAsync();
 
-        public Task<ReviewReadDto?> GetRoomByIdAsync(int id)
-        {
-            throw new NotImplementedException();
+            var updatedReview = _mapper.Map<ReviewReadDto>(review);
+            return updatedReview;
         }
-
-        public Task<ReviewReadDto?> UpdateReviewAsync(int id, ReviewUpdateDto reviewDto)
+     
+        public async Task<bool> DeleteReviewAsync(int id)
         {
-            throw new NotImplementedException();
+            var review = await _context.Reviews.FindAsync(id);
+            if (review == null)
+                return false;
+
+            _context.Reviews.Remove(review);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

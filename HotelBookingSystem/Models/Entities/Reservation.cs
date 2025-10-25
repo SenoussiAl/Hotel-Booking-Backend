@@ -22,11 +22,11 @@ public partial class Reservation
 
     public int? RoomId { get; set; }
 
-    public int? CustomerId { get; set; }
-
-    public virtual Customer? Customer { get; set; }
+    public int? UserId { get; set; }
 
     public virtual Hotel? Hotel { get; set; }
 
     public virtual Room? Room { get; set; }
+
+    public virtual UserAccount? User { get; set; }
 }

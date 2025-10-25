@@ -24,23 +24,24 @@ namespace HotelBookingSystem.Models.Mapper
             CreateMap<Reservation, ReservationReadDto>()
                 .ForMember(dest => dest.HotelName, opt => opt.MapFrom(src => src.Hotel != null ? src.Hotel.HotelName : null))
                 .ForMember(dest => dest.RoomNumber, opt => opt.MapFrom(src => src.Room != null ? src.Room.RoomNumber : null))
-                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer != null ? src.Customer.CustomerName : null));
+                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User!= null ? src.User.Username : null));
             CreateMap<ReservationCreateDto, Reservation>();
             CreateMap<ReservationUpdateDto, Reservation>();
 
             CreateMap<Review, ReviewReadDto>()
-                .ForMember(dest => dest.HotelName, opt => opt.MapFrom(src => src.Hotel != null ? src.Hotel.HotelName : null));
+                .ForMember(dest => dest.HotelName, opt => opt.MapFrom(src => src.Hotel != null ? src.Hotel.HotelName : null))
+                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User != null ? src.User.Username : null));
             CreateMap<ReviewCreateDto, Review>();
             CreateMap<ReviewUpdateDto, Review>();
 
-            CreateMap<Customer, CustomerReadDto>();
-            CreateMap<CustomerCreateDto, Customer>();
-            CreateMap<CustomerUpdateDto, Customer>();
+            CreateMap<UserAccount, UserAccountReadDto>();
+            CreateMap<UserAccountCreateDto, UserAccount>();
+            CreateMap<UserAccountUpdateDto, UserAccount>();
 
-            CreateMap<Userprofile, UserprofileReadDto>()
-                .ForMember(dest => dest.CustomerName, opt => opt.MapFrom(src => src.Customer != null ? src.Customer.CustomerName : null));
-            CreateMap<UserprofileCreateDto, Userprofile>();
-            CreateMap<UserprofileUpdateDto, Userprofile>();
+            CreateMap<CustomerProfile, CustomerProfileReadDto>()
+                    .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User != null ? src.User.Username : null));
+            CreateMap<CustomerProfileCreateDto, CustomerProfile>();
+            CreateMap<CustomerProfileUpdateDto, CustomerProfile>();
         }
     }
 }
