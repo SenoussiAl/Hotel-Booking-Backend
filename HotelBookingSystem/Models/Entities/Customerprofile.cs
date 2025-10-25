@@ -9,10 +9,7 @@ public partial class CustomerProfile
     public string? CustomerLastName { get; set; }
 
     public string? Phone { get; set; }
-
-    public string? Email { get; set; }
-
-    public string? UserAddress { get; set; }
+    public string? CustomerAddress { get; set; }
 
     public string? Nationality { get; set; }
 

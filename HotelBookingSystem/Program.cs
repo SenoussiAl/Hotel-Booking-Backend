@@ -6,9 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddDbContext<HotelBookingDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<IHotelService, HotelService>();
@@ -17,14 +16,12 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Seed database after building the app
 using (var scope = app.Services.CreateScope())
 {
-    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    await DbSeeder.SeedHotelsAsync(context);
+    var context = scope.ServiceProvider.GetRequiredService<HotelBookingDbContext>();
+    await DbSeeder.SeedAsync(context);
 }
 
-// Configure middleware
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

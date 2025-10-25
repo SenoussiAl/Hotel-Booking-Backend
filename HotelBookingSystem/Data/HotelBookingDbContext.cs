@@ -42,9 +42,6 @@ public partial class HotelBookingDbContext : DbContext
             entity.Property(e => e.CustomerId)
                 .HasDefaultValueSql("nextval('db.userprofile_profile_id_seq'::regclass)")
                 .HasColumnName("customer_id");
-            entity.Property(e => e.Email)
-                .HasMaxLength(100)
-                .HasColumnName("email");
             entity.Property(e => e.Gender)
                 .HasMaxLength(20)
                 .HasColumnName("gender");
@@ -57,7 +54,7 @@ public partial class HotelBookingDbContext : DbContext
             entity.Property(e => e.Phone)
                 .HasMaxLength(20)
                 .HasColumnName("phone");
-            entity.Property(e => e.UserAddress).HasColumnName("user_address");
+            entity.Property(e => e.CustomerAddress).HasColumnName("customer_address");
             entity.Property(e => e.CustomerFirstName)
                 .HasMaxLength(100)
                 .HasColumnName("first_name");
