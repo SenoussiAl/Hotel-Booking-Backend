@@ -18,11 +18,11 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
             return _mapper.Map<IEnumerable<CustomerProfileReadDto>>(customerProfiles);
         }
 
-        public async Task<CustomerProfileReadDto?> GetCustomerProfileByCustomerIdAsync(int customerId)
+        public async Task<CustomerProfileReadDto?> GetCustomerProfileByIdAsync(int id)
         {
             var customerProfile = await _context.CustomerProfiles
                 .Include(cp => cp.User)
-                .FirstOrDefaultAsync(cp => cp.CustomerId == customerId);
+                .FirstOrDefaultAsync(cp => cp.CustomerId == id);
             if (customerProfile == null)
                 return null;
             return _mapper.Map<CustomerProfileReadDto>(customerProfile);

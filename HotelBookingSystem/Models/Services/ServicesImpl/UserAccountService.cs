@@ -22,13 +22,13 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
             return _mapper.Map<IEnumerable<UserAccountReadDto>>(userAccounts);
         }
 
-        public async Task<UserAccountReadDto?> GetUserAccountByIdAsync(int userId)
+        public async Task<UserAccountReadDto?> GetUserAccountByIdAsync(int id)
         {
             var userAccount = await _context.UserAccounts
                 .Include(u => u.CustomerProfiles)
                 .Include(u => u.Reservations)
                 .Include(u => u.Reviews)
-                .FirstOrDefaultAsync(u => u.UserId == userId);
+                .FirstOrDefaultAsync(u => u.UserId == id);
             if (userAccount == null)
                 return null;
             return _mapper.Map<UserAccountReadDto>(userAccount);
