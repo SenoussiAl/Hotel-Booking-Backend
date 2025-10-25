@@ -20,7 +20,7 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
             return _mapper.Map<IEnumerable<ReviewReadDto>>(reviews);
         }
 
-        public async Task<IEnumerable<ReviewReadDto>> GetAllReviewsFromHotelIdAsync(int hotelId)
+        public async Task<IEnumerable<ReviewReadDto>> GetAllReviewsByHotelIdAsync(int hotelId)
         {
             var reviews = await _context.Reviews
                 .Where(r => r.HotelId == hotelId)
@@ -30,7 +30,7 @@ namespace HotelBookingSystem.Models.Services.ServicesImpl
             return _mapper.Map<IEnumerable<ReviewReadDto>>(reviews);
         }
 
-        public async Task<IEnumerable<ReviewReadDto>> GetAllReviewsFromUserIdAsync(int userId)
+        public async Task<IEnumerable<ReviewReadDto>> GetAllReviewsByUserIdAsync(int userId)
         {
             var reviews = await _context.Reviews
                 .Where(r => r.UserId == userId)

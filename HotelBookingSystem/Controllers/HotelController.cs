@@ -44,7 +44,7 @@ namespace HotelBookingSystem.Controllers
                 return BadRequest(ModelState);
             var updatedHotel = await _hotelService.UpdateHotelAsync(id, hotelDto);
             if (updatedHotel == null) 
-                return NotFound();
+                return NotFound(new { Message = $"Hotel with ID {id} not found." });
             return Ok(updatedHotel);
         }
 

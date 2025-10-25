@@ -35,7 +35,7 @@ namespace HotelBookingSystem.Controllers
         }
 
         [HttpPost("search")]
-        public async Task<ActionResult<IEnumerable<RoomReadDto>>> Search([FromBody] RoomSearchDto searchDto)
+        public async Task<ActionResult<IEnumerable<RoomReadDto>>> SearchRoom([FromBody] RoomSearchDto searchDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -56,7 +56,7 @@ namespace HotelBookingSystem.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<RoomReadDto>> Update(int id, RoomUpdateDto roomDto)
+        public async Task<ActionResult<RoomReadDto>> UpdateRoom(int id, RoomUpdateDto roomDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

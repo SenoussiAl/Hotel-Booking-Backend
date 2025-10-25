@@ -7,7 +7,8 @@ namespace HotelBookingSystem.Models.Services
     public interface IReviewService
     {
         Task<IEnumerable<ReviewReadDto>> GetAllReviewsAsync();
-        Task<IEnumerable<ReviewReadDto>> GetAllReviewsFromHotelIdAsync(int hotelId);
+        Task<IEnumerable<ReviewReadDto>> GetAllReviewsByHotelIdAsync(int hotelId);
+        Task<IEnumerable<ReviewReadDto>> GetAllReviewsByUserIdAsync(int userId);
         Task<ReviewReadDto?> GetReviewByIdAsync(int id);
         Task<ReviewReadDto> CreateReviewAsync(ReviewCreateDto reviewDto);
         Task<ReviewReadDto?> UpdateReviewAsync(int id, ReviewUpdateDto reviewDto);

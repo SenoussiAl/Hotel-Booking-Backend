@@ -32,7 +32,7 @@ namespace HotelBookingSystem.Controllers
         {
             var customerProfile = await _customerProfileService.GetCustomerProfileByUserIdAsync(userId);
             if (customerProfile == null)
-                return NotFound(new { Message = $"CustomerProfile with ID {userId} not found." });
+                return NotFound(new { Message = $"CustomerProfile with ID {userId} not found."});
 
             return Ok(customerProfile);
         }
@@ -46,7 +46,6 @@ namespace HotelBookingSystem.Controllers
             var createdCustomerProfile = await _customerProfileService.CreateCustomerProfileAsync(customerProfileDto);
             return CreatedAtAction(nameof(GetCustomerProfileById), new { id = createdCustomerProfile.CustomerId}, createdCustomerProfile);
         }
-
 
         [HttpPut("{id}")]
         public async Task<ActionResult<CustomerProfileReadDto>> Update(int id, CustomerProfileUpdateDto customerProfileDto)
