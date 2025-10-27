@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: hotel_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - hotel-net
+
+api:
+  build:
+    context: .
+    dockerfile: Dockerfile
+  depends_on:
+    - postgres
+  environment:
+    ASPNETCORE_ENVIRONMENT: Development
+    DefaultConnection: "Host=postgres;Port=5432;Database=hotel_db;Username=postgres;Password=postgres"
+    DB_HOST: postgres
+    DB_PORT: 5432
+  ports:
+    - "5159:80"
+  networks:
+    - hotel-net
+  restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  hotel-net:
+    driver: bridge

@@ -1,0 +1,12 @@
+bin/
+obj/
+.vs/
+**/*.user
+**/*.suo
+**/*.userprefs
+docker-compose.*
+**/Properties/launchSettings.json
+.env
+
+node_modules/
+dist/

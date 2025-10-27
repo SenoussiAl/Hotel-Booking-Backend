@@ -19,6 +19,8 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<HotelBookingDbContext>();
+    await context.Database.MigrateAsync();
+    // then seed
     await DbSeeder.SeedAsync(context);
 }
 
